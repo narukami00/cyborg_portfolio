@@ -72,7 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      galleryActiveIndex = (index + gallerySlides.length) % gallerySlides.length;
+      galleryActiveIndex =
+        (index + gallerySlides.length) % gallerySlides.length;
 
       gallerySlides.forEach((slide, slideIndex) => {
         slide.classList.toggle("is-active", slideIndex === galleryActiveIndex);
