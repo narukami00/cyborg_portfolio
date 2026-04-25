@@ -341,6 +341,10 @@ body {
     transform 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* The expanding Image */
@@ -431,6 +435,9 @@ body {
   border-color: var(--accent);
   box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
   z-index: 10;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .game-card:hover .game-poster {
@@ -489,4 +496,173 @@ body {
   .games-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Team Roster Accordion layout */
+.roster-accordion {
+  display: flex;
+  width: 100%;
+  height: 500px;
+  gap: 15px;
+}
+
+.roster-panel {
+  position: relative;
+  flex: 1; /* Unselected state is narrow */
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    flex 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.3s ease;
+}
+
+/* Background dark overlay so images pop */
+.roster-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 5, 0.95) 0%,
+    rgba(5, 5, 5, 0.2) 100%
+  );
+  z-index: 1;
+}
+
+/* The ACTIVE expanded panel */
+.roster-panel.active {
+  flex: 5; /* Expands to take up most of the space */
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+}
+
+/* The Transparent Character PNG */
+.character-cutout {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80%; /* Default height */
+  object-fit: contain;
+  z-index: 2;
+  opacity: 0.3; /* Dimmed when not selected */
+  filter: drop-shadow(0 0 0px transparent); /* Hidden outline */
+  transition: all 0.5s ease;
+}
+
+/* When the panel is clicked/active: Enlarge and IGNITE the outline */
+.roster-panel.active .character-cutout {
+  height: 95%; /* Character scales up */
+  opacity: 1; /* Full visibility */
+  /* This double drop-shadow traces the PNG shape to create a glowing neon outline */
+  filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 15px var(--accent));
+}
+
+/* Panel Text Content */
+.panel-content {
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+  width: 90%; /* Prevent text from overflowing out the right side */
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  pointer-events: none;
+}
+
+/* Slide up and fade in when active */
+.roster-panel.active .panel-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s; /* Waits for panel to expand first */
+}
+
+/* Typography for the Card */
+.role-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #050505;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.real-name {
+  display: block; /* Required for text-overflow to work */
+  font-size: 1rem;
+  color: #dfdfdf;
+  font-family: "Share Tech Mono", monospace;
+  text-transform: uppercase;
+
+  /* The anti-overflow magic combo */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ign {
+  display: block;
+  /* Fluid typography: sizes down automatically on smaller screens */
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-family: "Orbitron", sans-serif;
+  color: #fff;
+  text-shadow: 0 0 15px var(--glow);
+  margin-top: -3px;
+  line-height: 1.1;
+
+  /* Prevents extremely long gamertags from breaking layout */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 820px) {
+  .roster-accordion {
+    flex-direction: column; /* Stacks vertically on phones */
+    height: 800px; /* Taller area for stacking */
+  }
+  .panel-content {
+    left: 15px;
+    bottom: 15px;
+  }
+}
+
+
+/* Social Links Styling */
+
+.social-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.social-row a {
+  color: var(--accent);
+  font-size: 0.75rem;
+  text-decoration: none;
+  font-family: "Share Tech Mono", monospace;
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+  background: rgba(5, 5, 5, 0.6);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+}
+
+.social-row a:hover {
+  background: var(--accent);
+  color: #050505;
+  box-shadow: 0 0 12px var(--glow);
 }
