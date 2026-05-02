@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const navToggle = document.querySelector("[data-nav-toggle]");
+  const navMenu = document.querySelector("[data-nav-menu]");
+
+  if (navToggle && navMenu) {
+    function setNavOpen(isOpen) {
+      navToggle.classList.toggle("is-open", isOpen);
+      navMenu.classList.toggle("is-open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu",
+      );
+    }
+
+    navToggle.addEventListener("click", () => {
+      setNavOpen(!navMenu.classList.contains("is-open"));
+    });
+
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setNavOpen(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setNavOpen(false);
+      }
+    });
+  }
+
   const panels = document.querySelectorAll(".roster-panel");
   let autoPlayInterval;
   const slideDuration = 4000; // Time in milliseconds before switching

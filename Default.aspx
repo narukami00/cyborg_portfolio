@@ -13,8 +13,8 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Share+Tech+Mono&display=swap"
     />
 
-    <link rel="stylesheet" href="style.css?v=20260502-5" />
-    <script src="app.js?v=20260430-2" defer></script>
+    <link rel="stylesheet" href="style.css?v=20260502-6" />
+    <script src="app.js?v=20260502-1" defer></script>
     <title>CYBORG | KUET Cyber Gaming Club</title>
   </head>
   <body>
@@ -22,7 +22,19 @@
     <header class="navbar">
       <div class="container nav-wrap">
         <a href="#home" class="brand">CYBORG</a>
-        <nav>
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-controls="primary-navigation"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+          data-nav-toggle
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="primary-nav" id="primary-navigation" data-nav-menu>
           <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -32,6 +44,7 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
+          <a href="#contact" class="btn btn-outline btn-small nav-panel-cta">JOIN US</a>
         </nav>
         <a href="#contact" class="btn btn-outline btn-small">JOIN US</a>
       </div>
