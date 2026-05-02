@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Share+Tech+Mono&display=swap"
     />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=20260502-5" />
     <script src="app.js?v=20260430-2" defer></script>
     <title>CYBORG | KUET Cyber Gaming Club</title>
   </head>
@@ -146,6 +146,7 @@
 
       <section id="events" class="section visible delay-3">
         <div class="container">
+          <p class="section-kicker">MISSION CALENDAR</p>
           <h2 class="section-title">EVENTS</h2>
           <div class="event-grid">
             <!-- Featured Upcoming Event (Row 1) -->
@@ -212,6 +213,7 @@
 
       <section id="games" class="section visible delay-4">
         <div class="container">
+          <p class="section-kicker">ACTIVE TITLE POOL</p>
           <h2 class="section-title">FEATURED TITLES</h2>
           <div class="games-grid">
             <!-- CS2 -->
@@ -313,6 +315,7 @@
 
       <section id="team" class="section visible delay-5">
         <div class="container">
+          <p class="section-kicker">SQUAD LINEUP</p>
           <h2 class="section-title">THE ROSTER</h2>
           <div class="roster-accordion">
             <!-- Player 1 -->
@@ -563,7 +566,138 @@
       </section>
 
       <!-- The Gallery Section : End-->
+
+      <!-- The Contact Section : Start-->
+      <section id="contact" class="section contact-section visible delay-6">
+        <div class="container">
+          <div class="contact-head">
+            <p class="contact-kicker">ESTABLISH CONNECTION</p>
+            <h2 class="section-title left">SECURE COMM-LINK</h2>
+          </div>
+          
+          <div class="contact-grid">
+            <!-- Left Column: Terminal Form -->
+            <div class="contact-terminal">
+              <div class="terminal-header">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="terminal-title">sys.comm_protocol_v2.0</span>
+              </div>
+              <div class="terminal-body">
+                <div class="form-group retro-input">
+                  <label for="alias">&gt; ALIAS / GAMER TAG_</label>
+                  <div class="input-wrapper">
+                    <span class="bracket">[</span>
+                    <input type="text" id="alias" class="term-input" autocomplete="off" />
+                    <span class="bracket">]</span>
+                  </div>
+                </div>
+                
+                <div class="form-group retro-input">
+                  <label for="commlink">&gt; COMM-LINK (EMAIL)_</label>
+                  <div class="input-wrapper">
+                    <span class="bracket">[</span>
+                    <input type="email" id="commlink" class="term-input" autocomplete="off" />
+                    <span class="bracket">]</span>
+                  </div>
+                </div>
+
+                <div class="form-group retro-input">
+                  <label for="directive">&gt; DIRECTIVE / PRIMARY TITLE_</label>
+                  <div class="input-wrapper select-wrapper">
+                    <span class="bracket">[</span>
+                    <select id="directive" class="term-input">
+                      <option value="cs2">COUNTER-STRIKE 2</option>
+                      <option value="val">VALORANT</option>
+                      <option value="fifa">FIFA SERIES</option>
+                      <option value="pubg">PUBG</option>
+                      <option value="other">OTHER / GENERAL INQUIRY</option>
+                    </select>
+                    <span class="bracket">]</span>
+                  </div>
+                </div>
+
+                <div class="form-group retro-input">
+                  <label for="transmission">&gt; ENCRYPTED TRANSMISSION_</label>
+                  <div class="input-wrapper textarea-wrapper">
+                    <span class="bracket top-bracket">[</span>
+                    <textarea id="transmission" rows="4" class="term-input"></textarea>
+                    <span class="bracket bottom-bracket">]</span>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-terminal">
+                  <span class="btn-label btn-label-default">[ INITIALIZE ]</span>
+                  <span class="btn-label btn-label-hover">[ SEND TRANSMISSION ]</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Column: Coordinates / Links -->
+            <div class="contact-info">
+              <div class="info-block">
+                <h3>// BASE_OF_OPERATIONS</h3>
+                <p>Khulna University of Engineering & Technology (KUET)<br/>
+                Fulbarigate, Khulna-9203</p>
+              </div>
+              <div class="info-block">
+                <h3>// NETWORK_NODES</h3>
+                <ul class="social-nodes">
+                  <li>
+                    <a href="#" class="node-link">
+                      <span class="node-icon">DS</span>
+                      <div class="node-text">
+                        <span class="node-name">DISCORD_SERVER</span>
+                        <span class="node-status online">ONLINE : 142 USERS</span>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="node-link">
+                      <span class="node-icon">ST</span>
+                      <div class="node-text">
+                        <span class="node-name">STEAM_GROUP</span>
+                        <span class="node-status active">ACTIVE : SCRIMS</span>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="node-link">
+                      <span class="node-icon">FB</span>
+                      <div class="node-text">
+                        <span class="node-name">FACEBOOK_PAGE</span>
+                        <span class="node-status">BROADCASTING</span>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- The Contact Section : End-->
+
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <h3>CYBORG</h3>
+          <p>KUET CYBER GAMING CLUB &copy; 2026</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">HOME</a>
+          <a href="#about">ABOUT</a>
+          <a href="#events">EVENTS</a>
+          <a href="#games">GAMES</a>
+          <a href="#contact">CONTACT</a>
+        </div>
+        <div class="footer-status">
+          <span class="status-dot"></span>
+          SYSTEM ONLINE
+        </div>
+      </div>
+    </footer>
     </form>
   </body>
 </html>
