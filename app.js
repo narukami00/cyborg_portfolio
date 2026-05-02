@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const galleryDots = Array.from(
       galleryHero.querySelectorAll("[data-gallery-dot]"),
     );
+    const galleryCaption = galleryHero.querySelector(
+      "[data-gallery-caption-text]",
+    );
     const gallerySlideDuration = 4000;
     let galleryActiveIndex = Math.max(
       gallerySlides.findIndex((slide) => slide.classList.contains("is-active")),
@@ -78,6 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
       gallerySlides.forEach((slide, slideIndex) => {
         slide.classList.toggle("is-active", slideIndex === galleryActiveIndex);
       });
+
+      if (galleryCaption) {
+        galleryCaption.textContent =
+          gallerySlides[galleryActiveIndex].dataset.galleryCaption || "";
+      }
 
       galleryDots.forEach((dot, dotIndex) => {
         dot.classList.toggle("is-active", dotIndex === galleryActiveIndex);

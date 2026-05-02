@@ -1,6 +1,7 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head runat="server">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -13,10 +14,11 @@
     />
 
     <link rel="stylesheet" href="style.css" />
-    <script src="app.js" defer></script>
+    <script src="app.js?v=20260430-2" defer></script>
     <title>CYBORG | KUET Cyber Gaming Club</title>
   </head>
   <body>
+    <form id="form1" runat="server">
     <header class="navbar">
       <div class="container nav-wrap">
         <a href="#home" class="brand">CYBORG</a>
@@ -450,6 +452,7 @@
               <div
                 class="gallery-hero-slide is-active"
                 data-gallery-slide
+                data-gallery-caption="A sea of supporters turned the arena into a wall of noise."
                 style="
                   background-image: url(&quot;https://preview.redd.it/the-2025-honor-of-kings-kpl-grand-finals-sets-new-guinness-v0-vh34wb3wz00g1.jpeg?width=640&crop=smart&auto=webp&s=483c3fc75c30096b48482bde8b9f1bc0fc923997&quot;);
                 "
@@ -457,6 +460,7 @@
               <div
                 class="gallery-hero-slide"
                 data-gallery-slide
+                data-gallery-caption="The squad sealing a tournament win after a long run of tight matches."
                 style="
                   background-image: url(&quot;https://storage-asset.msi.com/global/picture/game-team/nxl/team-nxl-09.jpg&quot;);
                 "
@@ -464,6 +468,7 @@
               <div
                 class="gallery-hero-slide"
                 data-gallery-slide
+                data-gallery-caption="A trophy-lift moment that captured how far the team had come."
                 style="
                   background-image: url(&quot;https://i.ytimg.com/vi/OCtSFNcMMOc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCvyJ3tNFAVBAEVM-HwjDjv32f8lg&quot;);
                 "
@@ -471,15 +476,16 @@
               <div
                 class="gallery-hero-slide"
                 data-gallery-slide
+                data-gallery-caption="Late-night practice sessions where the roster kept grinding after hours."
                 style="
                   background-image: url(&quot;https://preview.redd.it/late-night-gaming-vibes-v0-2ncxmf5kc4md1.jpeg?auto=webp&s=edb69d94521088a0b2f69d72795aaeecebea2777&quot;);
                 "
               ></div>
               <div
                 class="gallery-caption gallery-caption-hero"
-                data-gallery-caption
+                data-gallery-caption-text
               >
-                Intra-KUET grand final under full crowd pressure.
+                A sea of supporters turned the arena into a wall of noise.
               </div>
               <div class="gallery-dots" aria-hidden="true">
                 <span class="is-active" data-gallery-dot></span>
@@ -558,5 +564,6 @@
 
       <!-- The Gallery Section : End-->
     </main>
+    </form>
   </body>
 </html>
