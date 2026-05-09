@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" MaintainScrollPositionOnPostback="true" %>
 <!doctype html>
 <html lang="en">
   <head runat="server">
@@ -595,12 +595,13 @@
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                 <span class="terminal-title">sys.comm_protocol_v2.0</span>
               </div>
+              <asp:PlaceHolder ID="phContactForm" runat="server">
               <div class="terminal-body">
                 <div class="form-group retro-input">
                   <label for="alias">&gt; ALIAS / GAMER TAG_</label>
                   <div class="input-wrapper">
                     <span class="bracket">[</span>
-                    <input type="text" id="alias" class="term-input" autocomplete="off" />
+                    <asp:TextBox ID="txtAlias" runat="server" CssClass="term-input" autocomplete="off"></asp:TextBox>
                     <span class="bracket">]</span>
                   </div>
                 </div>
@@ -609,7 +610,7 @@
                   <label for="commlink">&gt; COMM-LINK (EMAIL)_</label>
                   <div class="input-wrapper">
                     <span class="bracket">[</span>
-                    <input type="email" id="commlink" class="term-input" autocomplete="off" />
+                    <asp:TextBox ID="txtCommLink" runat="server" TextMode="Email" CssClass="term-input" autocomplete="off"></asp:TextBox>
                     <span class="bracket">]</span>
                   </div>
                 </div>
@@ -618,13 +619,13 @@
                   <label for="directive">&gt; DIRECTIVE / PRIMARY TITLE_</label>
                   <div class="input-wrapper select-wrapper">
                     <span class="bracket">[</span>
-                    <select id="directive" class="term-input">
-                      <option value="cs2">COUNTER-STRIKE 2</option>
-                      <option value="val">VALORANT</option>
-                      <option value="fifa">FIFA SERIES</option>
-                      <option value="pubg">PUBG</option>
-                      <option value="other">OTHER / GENERAL INQUIRY</option>
-                    </select>
+                    <asp:DropDownList ID="ddlDirective" runat="server" CssClass="term-input">
+                      <asp:ListItem Value="cs2">COUNTER-STRIKE 2</asp:ListItem>
+                      <asp:ListItem Value="val">VALORANT</asp:ListItem>
+                      <asp:ListItem Value="fifa">FIFA SERIES</asp:ListItem>
+                      <asp:ListItem Value="pubg">PUBG</asp:ListItem>
+                      <asp:ListItem Value="other">OTHER / GENERAL INQUIRY</asp:ListItem>
+                    </asp:DropDownList>
                     <span class="bracket">]</span>
                   </div>
                 </div>
@@ -633,16 +634,28 @@
                   <label for="transmission">&gt; ENCRYPTED TRANSMISSION_</label>
                   <div class="input-wrapper textarea-wrapper">
                     <span class="bracket top-bracket">[</span>
-                    <textarea id="transmission" rows="4" class="term-input"></textarea>
+                    <asp:TextBox ID="txtTransmission" runat="server" TextMode="MultiLine" Rows="4" CssClass="term-input"></asp:TextBox>
                     <span class="bracket bottom-bracket">]</span>
                   </div>
                 </div>
 
-                <button type="button" class="btn-terminal">
-                  <span class="btn-label btn-label-default">[ INITIALIZE ]</span>
-                  <span class="btn-label btn-label-hover">[ SEND TRANSMISSION ]</span>
-                </button>
+                <asp:Button ID="btnInitialize" runat="server" CssClass="btn btn-solid" Text="INITIALIZE" OnClick="btnInitialize_Click" OnClientClick="return handleInitialize(this);" style="margin-top: 15px;" />
               </div>
+              </asp:PlaceHolder>
+
+              <asp:PlaceHolder ID="phAdminTerminal" runat="server" Visible="false">
+                <div class="terminal-body" style="color: var(--accent); min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
+                  <h3 style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 20px; animation: blinkCursor 2s infinite;">&gt; ACCESS GRANTED.</h3>
+                  <p style="margin-bottom: 30px;">DIRECTOR PRIVILEGES ACTIVE. AWAITING COMMAND...</p>
+                  
+                  <div class="input-wrapper">
+                    <span class="bracket" style="color: var(--accent);">root@cyborg:~#</span>
+                    <asp:TextBox ID="txtAdminCommand" runat="server" CssClass="term-input" autocomplete="off" style="color: var(--accent);" onkeydown="return handleTerminal(event, this);"></asp:TextBox>
+                    <asp:Button ID="btnLogoutHidden" runat="server" OnClick="btnLogoutHidden_Click" style="display:none;" />
+                  </div>
+                </div>
+              </asp:PlaceHolder>
+
             </div>
 
             <!-- Right Column: Coordinates / Links -->
@@ -692,6 +705,52 @@
 
     </main>
 
+      <!-- The Classified Section : Start-->
+      <asp:PlaceHolder ID="phClassifiedData" runat="server" Visible="false">
+        <section id="classified" class="section visible delay-1" style="background-color: #050505;">
+          <div class="container">
+            <div class="contact-head">
+              <p class="contact-kicker" style="color: #ff4757;">TOP SECRET</p>
+              <h2 class="section-title left" style="color: #ff4757;">INTERCEPTED COMMS</h2>
+            </div>
+            
+            <div style="background: rgba(10, 10, 10, 0.95); border: 1px solid #ff4757; padding: 20px; font-family: 'Share Tech Mono', monospace; overflow-x: auto; box-shadow: 0 0 20px rgba(255, 71, 87, 0.2);">
+              <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1px solid #ff4757; color: #ff4757;">
+                    <th style="padding: 12px;">TIMESTAMP</th>
+                    <th style="padding: 12px;">ALIAS</th>
+                    <th style="padding: 12px;">DIRECTIVE</th>
+                    <th style="padding: 12px;">TRANSMISSION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid rgba(255, 71, 87, 0.2);">
+                    <td style="padding: 12px; color: var(--muted);">05-09-2026 14:00</td>
+                    <td style="padding: 12px; color: var(--text);">ShadowStriker</td>
+                    <td style="padding: 12px; color: var(--text);">VALORANT</td>
+                    <td style="padding: 12px; color: var(--text);">Requesting tryouts for the main roster. Immortal 3 peak.</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255, 71, 87, 0.2);">
+                    <td style="padding: 12px; color: var(--muted);">05-08-2026 09:30</td>
+                    <td style="padding: 12px; color: var(--text);">NoobSlayer99</td>
+                    <td style="padding: 12px; color: var(--text);">CS2</td>
+                    <td style="padding: 12px; color: var(--text);">When is the next open scrim?</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px; color: var(--muted);">05-05-2026 21:15</td>
+                    <td style="padding: 12px; color: var(--text);">DrDisrespect</td>
+                    <td style="padding: 12px; color: var(--text);">PUBG</td>
+                    <td style="padding: 12px; color: var(--text);">YAYAYAYAYAYA.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </asp:PlaceHolder>
+      <!-- The Classified Section : End-->
+
     <footer class="site-footer">
       <div class="container footer-content">
         <div class="footer-brand">
@@ -711,6 +770,58 @@
         </div>
       </div>
     </footer>
+    
+    <div id="hacker-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.95); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; font-family: 'Share Tech Mono', monospace; color: var(--accent);">
+      <h2 id="hacker-text" style="font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: 0.15em; text-shadow: 0 0 20px var(--glow); text-align: center; max-width: 80%;"></h2>
+    </div>
+
+    <script>
+      function typeText(element, text, callback) {
+        element.textContent = "";
+        let i = 0;
+        let interval = setInterval(() => {
+          element.textContent += text.charAt(i);
+          i++;
+          if (i >= text.length) {
+            clearInterval(interval);
+            setTimeout(callback, 600);
+          }
+        }, 35);
+      }
+
+      function handleInitialize(btn) {
+        const trans = document.getElementById('<%= txtTransmission.ClientID %>').value.trim();
+        if (trans === "sudo override -auth director") {
+          const overlay = document.getElementById('hacker-overlay');
+          const textEl = document.getElementById('hacker-text');
+          overlay.style.display = 'flex';
+          typeText(textEl, "> GRANTING DIRECTOR PRIVILEGES...", () => {
+             __doPostBack(btn.name, '');
+          });
+          return false; // prevent immediate postback
+        }
+        return true; // continue normal postback
+      }
+
+      function handleTerminal(event, inputCtrl) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const cmd = inputCtrl.value.trim().toLowerCase();
+          if (cmd === "logout") {
+            const overlay = document.getElementById('hacker-overlay');
+            const textEl = document.getElementById('hacker-text');
+            overlay.style.display = 'flex';
+            typeText(textEl, "> REVOKING DIRECTOR PRIVILEGES...", () => {
+               __doPostBack('<%= btnLogoutHidden.UniqueID %>', '');
+            });
+          } else {
+            // Not logout, just clear input immediately
+            inputCtrl.value = '';
+          }
+          return false;
+        }
+      }
+    </script>
     </form>
   </body>
 </html>
