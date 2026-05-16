@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Share+Tech+Mono&display=swap"
     />
 
-    <link rel="stylesheet" href="style.css?v=20260502-6" />
+    <link rel="stylesheet" href="style.css?v=20260516-1" />
     <script src="app.js?v=20260502-1" defer></script>
     <title>CYBORG | KUET Cyber Gaming Club</title>
   </head>
@@ -45,9 +45,9 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-          <a href="#contact" class="btn btn-outline btn-small nav-panel-cta">JOIN US</a>
+          <a runat="server" id="navBtnMobile" href="#contact" class="btn btn-outline btn-small nav-panel-cta">JOIN US</a>
         </nav>
-        <a href="#contact" class="btn btn-outline btn-small">JOIN US</a>
+        <a runat="server" id="navBtnDesktop" href="#contact" class="btn btn-outline btn-small">JOIN US</a>
       </div>
     </header>
 
@@ -57,7 +57,7 @@
       <section id="home" class="hero">
         <div class="container hero-content visible delay-1">
           <h1 class="hero-title">CYBORG</h1>
-          <p class="hero-tagline">WE GAME, THEREFORE WE ARE</p>
+          <p class="hero-tagline"><asp:Label ID="lblHeroTagline" runat="server">WE GAME, THEREFORE WE ARE</asp:Label></p>
           <div class="cta-row">
             <a href="#events" class="btn btn-solid">EXPLORE</a>
             <a href="#about" class="btn btn-outline">ABOUT US</a>

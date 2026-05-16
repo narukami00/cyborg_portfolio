@@ -24,6 +24,21 @@ public partial class _Default : Page
             phContactForm.Visible = false;
             phAdminTerminal.Visible = true;
             phClassifiedData.Visible = true;
+            
+            // Change Nav Button to CONSOLE
+            navBtnDesktop.InnerText = "CONSOLE";
+            navBtnMobile.InnerText = "CONSOLE";
+
+            // Read the PREVIOUS login cookie to display it.
+            // This cookie is set at login time from the OLD LastSecureConnection value.
+            if (Request.Cookies["PreviousConnection"] != null)
+            {
+                lblHeroTagline.Text = "&gt; LAST SECURE CONNECTION: " + Request.Cookies["PreviousConnection"].Value;
+            }
+            else
+            {
+                lblHeroTagline.Text = "&gt; INITIAL SECURE CONNECTION ESTABLISHED.";
+            }
 
             // Load data from DB into the Repeater if not a PostBack (or re-bind as needed)
             if (!IsPostBack)
@@ -37,6 +52,11 @@ public partial class _Default : Page
             phContactForm.Visible = true;
             phAdminTerminal.Visible = false;
             phClassifiedData.Visible = false;
+            
+            // Reset the hero tagline and nav buttons to normal
+            lblHeroTagline.Text = "WE GAME, THEREFORE WE ARE";
+            navBtnDesktop.InnerText = "JOIN US";
+            navBtnMobile.InnerText = "JOIN US";
         }
     }
 
@@ -71,6 +91,23 @@ public partial class _Default : Page
         {
             // Set session variable
             Session["IsAdmin"] = true;
+
+            // Step 1: Save the OLD login time to PreviousConnection (this is what gets displayed).
+            // If no previous time exists, PreviousConnection won't be written (Page_Load handles that case).
+            if (Request.Cookies["LastSecureConnection"] != null)
+            {
+                HttpCookie prevCookie = new HttpCookie("PreviousConnection");
+                prevCookie.Value = Request.Cookies["LastSecureConnection"].Value;
+                prevCookie.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Add(prevCookie);
+            }
+
+            // Step 2: Record the CURRENT login time in LastSecureConnection.
+            // This will become the displayed time on the next login.
+            HttpCookie loginCookie = new HttpCookie("LastSecureConnection");
+            loginCookie.Value = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+            loginCookie.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(loginCookie);
             
             // Reload page to apply changes
             Response.Redirect(Request.RawUrl);
