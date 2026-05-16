@@ -19,6 +19,7 @@
   </head>
   <body>
     <form id="form1" runat="server">
+      <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <header class="navbar">
       <div class="container nav-wrap">
         <a href="#home" class="brand">CYBORG</a>
@@ -596,6 +597,8 @@
                 <span class="terminal-title">sys.comm_protocol_v2.0</span>
               </div>
               <asp:PlaceHolder ID="phContactForm" runat="server">
+              <asp:UpdatePanel ID="upContactForm" runat="server">
+                <ContentTemplate>
               <div class="terminal-body">
                 <div class="form-group retro-input">
                   <label for="alias">&gt; ALIAS / GAMER TAG_</label>
@@ -640,7 +643,10 @@
                 </div>
 
                 <asp:Button ID="btnInitialize" runat="server" CssClass="btn btn-solid" Text="INITIALIZE" OnClick="btnInitialize_Click" OnClientClick="return handleInitialize(this);" style="margin-top: 15px;" />
+                <asp:Label ID="lblStatusMessage" runat="server" style="display: block; margin-top: 15px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;"></asp:Label>
               </div>
+                </ContentTemplate>
+              </asp:UpdatePanel>
               </asp:PlaceHolder>
 
               <asp:PlaceHolder ID="phAdminTerminal" runat="server" Visible="false">
@@ -725,24 +731,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr style="border-bottom: 1px solid rgba(255, 71, 87, 0.2);">
-                    <td style="padding: 12px; color: var(--muted);">05-09-2026 14:00</td>
-                    <td style="padding: 12px; color: var(--text);">ShadowStriker</td>
-                    <td style="padding: 12px; color: var(--text);">VALORANT</td>
-                    <td style="padding: 12px; color: var(--text);">Requesting tryouts for the main roster. Immortal 3 peak.</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid rgba(255, 71, 87, 0.2);">
-                    <td style="padding: 12px; color: var(--muted);">05-08-2026 09:30</td>
-                    <td style="padding: 12px; color: var(--text);">NoobSlayer99</td>
-                    <td style="padding: 12px; color: var(--text);">CS2</td>
-                    <td style="padding: 12px; color: var(--text);">When is the next open scrim?</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 12px; color: var(--muted);">05-05-2026 21:15</td>
-                    <td style="padding: 12px; color: var(--text);">DrDisrespect</td>
-                    <td style="padding: 12px; color: var(--text);">PUBG</td>
-                    <td style="padding: 12px; color: var(--text);">YAYAYAYAYAYA.</td>
-                  </tr>
+                  <asp:Repeater ID="rptTransmissions" runat="server">
+                    <ItemTemplate>
+                      <tr style="border-bottom: 1px solid rgba(255, 71, 87, 0.2);">
+                        <td style="padding: 12px; color: var(--muted);"><%# Eval("Timestamp", "{0:MM-dd-yyyy HH:mm}") %></td>
+                        <td style="padding: 12px; color: var(--text);"><%# Eval("Alias") %></td>
+                        <td style="padding: 12px; color: var(--text);"><%# Eval("Directive") %></td>
+                        <td style="padding: 12px; color: var(--text);"><%# Eval("TransmissionText") %></td>
+                      </tr>
+                    </ItemTemplate>
+                  </asp:Repeater>
                 </tbody>
               </table>
             </div>
