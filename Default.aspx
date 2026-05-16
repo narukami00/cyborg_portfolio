@@ -787,19 +787,30 @@
         }, 35);
       }
 
+      let overrideConfirmed = false;
+
       function handleInitialize(btn) {
+        // Force both buttons to always do a FULL postback, even inside the UpdatePanel.
+        // This is critical so that Response.Redirect works correctly for both override and logout.
+        if (overrideConfirmed) {
+          return true;
+        }
+
         const trans = document.getElementById('<%= txtTransmission.ClientID %>').value.trim();
         if (trans === "sudo override -auth director") {
           const overlay = document.getElementById('hacker-overlay');
           const textEl = document.getElementById('hacker-text');
           overlay.style.display = 'flex';
           typeText(textEl, "> GRANTING DIRECTOR PRIVILEGES...", () => {
-             __doPostBack(btn.name, '');
+            overrideConfirmed = true; 
+            btn.click();
           });
-          return false; // prevent immediate postback
+          return false; // Block the first immediate postback while animation plays
         }
-        return true; // continue normal postback
+        return true; // Normal submission, allow postback
       }
+
+      let logoutConfirmed = false;
 
       function handleTerminal(event, inputCtrl) {
         if (event.key === 'Enter') {
@@ -810,10 +821,11 @@
             const textEl = document.getElementById('hacker-text');
             overlay.style.display = 'flex';
             typeText(textEl, "> REVOKING DIRECTOR PRIVILEGES...", () => {
-               __doPostBack('<%= btnLogoutHidden.UniqueID %>', '');
+              logoutConfirmed = true;
+              document.getElementById('<%= btnLogoutHidden.ClientID %>').click();
             });
           } else {
-            // Not logout, just clear input immediately
+            // Not logout: just clear the input, no page refresh
             inputCtrl.value = '';
           }
           return false;
