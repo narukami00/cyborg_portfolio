@@ -147,4 +147,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setActiveGallerySlide(galleryActiveIndex);
     startGalleryAutoPlay();
   }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.visible').forEach(el => observer.observe(el));
 });

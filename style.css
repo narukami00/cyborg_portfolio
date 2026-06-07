@@ -560,21 +560,6 @@ body {
     rgba(17, 17, 17, 0.88)
   );
   padding: 16px;
-  transform: translateY(18px);
-  opacity: 0;
-  animation: cardRise 0.65s ease forwards;
-}
-
-.why-card:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.why-card:nth-child(3) {
-  animation-delay: 0.2s;
-}
-
-.why-card:nth-child(4) {
-  animation-delay: 0.3s;
 }
 
 .why-card h4 {
@@ -588,13 +573,6 @@ body {
 .why-card p {
   color: #cfcfcf;
   font-size: 0.86rem;
-}
-
-@keyframes cardRise {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 980px) {
@@ -1620,6 +1598,24 @@ select.term-input option {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.8); }
 }
+
+.visible {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.visible.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
 
 @media (max-width: 860px) {
   .nav-wrap {

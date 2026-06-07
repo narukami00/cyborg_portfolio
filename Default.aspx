@@ -13,13 +13,12 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Share+Tech+Mono&display=swap"
     />
 
-    <link rel="stylesheet" href="style.css?v=20260516-1" />
-    <script src="app.js?v=20260502-1" defer></script>
+    <link rel="stylesheet" href="style.css?v=20260607-1" />
+    <script src="app.js?v=20260607-1" defer></script>
     <title>CYBORG | KUET Cyber Gaming Club</title>
   </head>
   <body>
     <form id="form1" runat="server">
-      <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <header class="navbar">
       <div class="container nav-wrap">
         <a href="#home" class="brand">CYBORG</a>
@@ -597,8 +596,6 @@
                 <span class="terminal-title">sys.comm_protocol_v2.0</span>
               </div>
               <asp:PlaceHolder ID="phContactForm" runat="server">
-              <asp:UpdatePanel ID="upContactForm" runat="server">
-                <ContentTemplate>
               <div class="terminal-body">
                 <div class="form-group retro-input">
                   <label for="alias">&gt; ALIAS / GAMER TAG_</label>
@@ -645,8 +642,6 @@
                 <asp:Button ID="btnInitialize" runat="server" CssClass="btn btn-solid" Text="INITIALIZE" OnClick="btnInitialize_Click" OnClientClick="return handleInitialize(this);" style="margin-top: 15px;" />
                 <asp:Label ID="lblStatusMessage" runat="server" style="display: block; margin-top: 15px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;"></asp:Label>
               </div>
-                </ContentTemplate>
-              </asp:UpdatePanel>
               </asp:PlaceHolder>
 
               <asp:PlaceHolder ID="phAdminTerminal" runat="server" Visible="false">

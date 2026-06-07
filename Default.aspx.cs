@@ -13,10 +13,6 @@ public partial class _Default : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Force both buttons to always do a FULL postback, even inside the UpdatePanel.
-        // This is critical so that Response.Redirect works correctly for both override and logout.
-        ScriptManager.GetCurrent(this).RegisterPostBackControl(btnInitialize);
-        ScriptManager.GetCurrent(this).RegisterPostBackControl(btnLogoutHidden);
         // Check if the current session has admin privileges
         if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
         {
