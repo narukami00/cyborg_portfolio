@@ -634,12 +634,12 @@
                   <label for="transmission">&gt; ENCRYPTED TRANSMISSION_</label>
                   <div class="input-wrapper textarea-wrapper">
                     <span class="bracket top-bracket">[</span>
-                    <asp:TextBox ID="txtTransmission" runat="server" TextMode="MultiLine" Rows="4" CssClass="term-input"></asp:TextBox>
+                    <asp:TextBox ID="txtTransmission" runat="server" TextMode="MultiLine" Rows="4" CssClass="term-input" data-ref="transmission"></asp:TextBox>
                     <span class="bracket bottom-bracket">]</span>
                   </div>
                 </div>
 
-                <asp:Button ID="btnInitialize" runat="server" CssClass="btn btn-solid" Text="INITIALIZE" OnClick="btnInitialize_Click" OnClientClick="return handleInitialize(this);" style="margin-top: 15px;" />
+                <asp:Button ID="btnInitialize" runat="server" CssClass="btn btn-solid" Text="INITIALIZE" OnClick="btnInitialize_Click" style="margin-top: 15px;" data-ref="initialize" />
                 <asp:Label ID="lblStatusMessage" runat="server" style="display: block; margin-top: 15px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;"></asp:Label>
               </div>
               </asp:PlaceHolder>
@@ -651,8 +651,8 @@
                   
                   <div class="input-wrapper">
                     <span class="bracket" style="color: var(--accent);">root@cyborg:~#</span>
-                    <asp:TextBox ID="txtAdminCommand" runat="server" CssClass="term-input" autocomplete="off" style="color: var(--accent);" onkeydown="return handleTerminal(event, this);"></asp:TextBox>
-                    <asp:Button ID="btnLogoutHidden" runat="server" OnClick="btnLogoutHidden_Click" style="display:none;" />
+                    <asp:TextBox ID="txtAdminCommand" runat="server" CssClass="term-input" autocomplete="off" style="color: var(--accent);" data-ref="admin-cmd"></asp:TextBox>
+                    <asp:Button ID="btnLogoutHidden" runat="server" OnClick="btnLogoutHidden_Click" style="display:none;" data-ref="logout" />
                   </div>
                 </div>
               </asp:PlaceHolder>
@@ -768,65 +768,7 @@
       <h2 id="hacker-text" style="font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: 0.15em; text-shadow: 0 0 20px var(--glow); text-align: center; max-width: 80%;"></h2>
     </div>
 
-    <script>
-      function typeText(element, text, callback) {
-        element.textContent = "";
-        let i = 0;
-        let interval = setInterval(() => {
-          element.textContent += text.charAt(i);
-          i++;
-          if (i >= text.length) {
-            clearInterval(interval);
-            setTimeout(callback, 600);
-          }
-        }, 35);
-      }
 
-      let overrideConfirmed = false;
-
-      function handleInitialize(btn) {
-        // Force both buttons to always do a FULL postback, even inside the UpdatePanel.
-        // This is critical so that Response.Redirect works correctly for both override and logout.
-        if (overrideConfirmed) {
-          return true;
-        }
-
-        const trans = document.getElementById('<%= txtTransmission.ClientID %>').value.trim();
-        if (trans === "sudo override -auth director") {
-          const overlay = document.getElementById('hacker-overlay');
-          const textEl = document.getElementById('hacker-text');
-          overlay.style.display = 'flex';
-          typeText(textEl, "> GRANTING DIRECTOR PRIVILEGES...", () => {
-            overrideConfirmed = true; 
-            btn.click();
-          });
-          return false; // Block the first immediate postback while animation plays
-        }
-        return true; // Normal submission, allow postback
-      }
-
-      let logoutConfirmed = false;
-
-      function handleTerminal(event, inputCtrl) {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          const cmd = inputCtrl.value.trim().toLowerCase();
-          if (cmd === "logout") {
-            const overlay = document.getElementById('hacker-overlay');
-            const textEl = document.getElementById('hacker-text');
-            overlay.style.display = 'flex';
-            typeText(textEl, "> REVOKING DIRECTOR PRIVILEGES...", () => {
-              logoutConfirmed = true;
-              document.getElementById('<%= btnLogoutHidden.ClientID %>').click();
-            });
-          } else {
-            // Not logout: just clear the input, no page refresh
-            inputCtrl.value = '';
-          }
-          return false;
-        }
-      }
-    </script>
     </form>
   </body>
 </html>

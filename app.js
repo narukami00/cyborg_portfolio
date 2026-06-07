@@ -157,4 +157,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.visible').forEach(el => observer.observe(el));
+
+  // Terminal Easter Egg Logic
+  let overrideConfirmed = false;
+
+  function typeText(element, text, callback) {
+    element.textContent = "";
+    let i = 0;
+    let interval = setInterval(() => {
+      element.textContent += text.charAt(i);
+      i++;
+      if (i >= text.length) {
+        clearInterval(interval);
+        setTimeout(callback, 600);
+      }
+    }, 35);
+  }
+
+  const btnInit = document.querySelector('[data-ref="initialize"]');
+  if (btnInit) {
+    btnInit.addEventListener('click', function(e) {
+      if (overrideConfirmed) {
+        overrideConfirmed = false;
+        return;
+      }
+      const trans = document.querySelector('[data-ref="transmission"]').value.trim();
+      if (trans === "sudo override -auth director") {
+        e.preventDefault();
+        const overlay = document.getElementById('hacker-overlay');
+        const textEl = document.getElementById('hacker-text');
+        overlay.style.display = 'flex';
+        typeText(textEl, "> GRANTING DIRECTOR PRIVILEGES...", () => {
+          overrideConfirmed = true;
+          btnInit.click();
+        });
+      }
+    });
+  }
+
+  const adminCmd = document.querySelector('[data-ref="admin-cmd"]');
+  if (adminCmd) {
+    adminCmd.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const cmd = this.value.trim().toLowerCase();
+        if (cmd === "logout") {
+          const overlay = document.getElementById('hacker-overlay');
+          const textEl = document.getElementById('hacker-text');
+          overlay.style.display = 'flex';
+          typeText(textEl, "> REVOKING DIRECTOR PRIVILEGES...", () => {
+            document.querySelector('[data-ref="logout"]').click();
+          });
+        } else {
+          this.value = '';
+        }
+      }
+    });
+  }
 });
